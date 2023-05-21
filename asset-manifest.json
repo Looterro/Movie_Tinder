@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "//Movie_Tinder/static/css/main.32aadf99.css",
-    "main.js": "//Movie_Tinder/static/js/main.17b3553a.js",
-    "static/js/787.41c82671.chunk.js": "//Movie_Tinder/static/js/787.41c82671.chunk.js",
-    "index.html": "//Movie_Tinder/index.html",
-    "main.32aadf99.css.map": "//Movie_Tinder/static/css/main.32aadf99.css.map",
-    "main.17b3553a.js.map": "//Movie_Tinder/static/js/main.17b3553a.js.map",
-    "787.41c82671.chunk.js.map": "//Movie_Tinder/static/js/787.41c82671.chunk.js.map"
+    "main.css": "./static/css/main.32aadf99.css",
+    "main.js": "./static/js/main.b971335c.js",
+    "static/js/787.41c82671.chunk.js": "./static/js/787.41c82671.chunk.js",
+    "index.html": "./index.html",
+    "main.32aadf99.css.map": "./static/css/main.32aadf99.css.map",
+    "main.b971335c.js.map": "./static/js/main.b971335c.js.map",
+    "787.41c82671.chunk.js.map": "./static/js/787.41c82671.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.32aadf99.css",
-    "static/js/main.17b3553a.js"
+    "static/js/main.b971335c.js"
   ]
 }
