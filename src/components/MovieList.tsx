@@ -25,7 +25,7 @@ const MovieList: React.FC = () => {
 
     return (
 
-        <div className="list-container">
+        <div className='list-container'>
 
             {/*  If there is no movies display a message, else display the current index card*/}
             {currentMovie ? (

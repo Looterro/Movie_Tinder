@@ -8,9 +8,9 @@ function App() {
 
     <div>
       
-      <Container maxWidth={false} className="container">
+      <Container maxWidth={false} className='container'>
 
-        <Typography variant="h4" align="center" className="title">
+        <Typography variant='h4' align='center' className='title'>
           Tinder for Movies
         </Typography>
 

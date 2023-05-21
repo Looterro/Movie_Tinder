@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
-import { Card, CardContent, Typography, Button, Box, Divider, Rating, Grid } from '@mui/material';
-import CheckIcon from '@mui/icons-material/Check';
-import CloseIcon from '@mui/icons-material/Close';
+import { Card, Grid } from '@mui/material';
+import { motion, useMotionValue, useTransform } from 'framer-motion';
+
 import '../styles/MovieCard.css';
+import MovieImage from './MovieImage';
+import MovieDetails from './MovieDetails';
+import MovieActions from './MovieActions';
 
 // Props for MovieCard component
 interface MovieCardProps {
@@ -30,178 +33,108 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, onAccept, onReject }) => {
 
     // Handler for accepting a movie and moving to the next one
     const handleAccept = () => {
+        setSwipeDirection('left');
         setTimeout(() => {
             onAccept(movie.id);
+            setSwipeDirection('');
         }, 400);
     };
 
     // Handler for rejecting a movie and moving to the next one
     const handleReject = () => {
+        setSwipeDirection('right');
         setTimeout(() => {
             onReject(movie.id);
+            setSwipeDirection('');
         }, 400);
     };
 
-    const MovieImage = () => {
+    // State for tracking the swipe direction
+    const [swipeDirection, setSwipeDirection] = useState('');
 
-        return (
-    
-            <Grid item xs={12} md={5}>       
-                <Box sx={{
-                    p: '14px',
-                    pb: '4px',
-                    borderRadius: '12px 0 0 12px',
-                    backgroundColor: '#f5f5f5',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                }}>
-    
-                    <img 
-                        src={movie.imageURL}
-                        alt={movie.title}
-                        style={{
-                          width: '100%',
-                          height: '100%',
-                          objectFit: 'cover',
-                          borderRadius: '12px',
-                          boxShadow: '8px 8px 10px rgba(2.2, 3.2, 0.5, 0.5)',
-                        }}
-                    />
-    
-                </Box>
-            </Grid>
+    // Defining the x-axis and y-axis motion values using framer-motion
+    const x = useMotionValue(0);
+    const y = useMotionValue(0);
+
+    // Defining the drag constraints for the movie card using framer-motion
+    const xRange = [-300, 300];
+    const dragX = useTransform(x, xRange, xRange);
+
+    //Function to handle the drag event
+    const handleDragEnd = () => {
+       
+        const dragDistance = Math.abs(dragX.get());
+        const swipeThreshold = 100;
+
+         // If the drag distance is greater than the swipe threshold, then swipe the card
+        if (dragDistance > swipeThreshold) {
             
-        );
-    
-    };
+            // If the drag direction is left, then swipe left
+            const isSwipeLeft = dragX.get() < 0;
 
-    const MovieDetails = () => {
-
-        return (
-
-            <Grid item xs={12} md={7}>
-                <CardContent sx={{ p: '4px 0 0 0'}}>
-
-                    <Typography
-                        variant = "h6"
-                        sx={{
-                            fontWeight: 'bold',
-                            p: '0 8px 4px 0',
-                            color: '#333',
-                        }}
-                    >
-                        {movie.title}
-                    </Typography>
-
-                    <Divider sx={{ my: 1, backgroundColor: '#EE4B2B' }} />
-
-                    <Box display='flex' alignItems='center' sx={{ pl: '9px' }} >
-
-                        <Rating 
-                            name="movie-rating" 
-                            value= {calculateScaledRating()} 
-                            max={maxRating} 
-                            readOnly 
-                            sx={{ color: '#f44336' }} 
-                        />
-
-                        <Typography variant='body2' sx={{ color: '#777', ml: '8px' }}>
-                            {movie.rating.toFixed(1)}/10
-                        </Typography>
-
-                    </Box>
-
-                    <Divider sx={{ my: 1, backgroundColor: '#EE4B2B' }} />
-
-                    <Box sx= {{ p: '4px 8px 0 8px', maxHeight: '120px', overflow: 'auto' }}>
-                        <Typography variant='body2' sx={{ color: '#555' }}>
-                            {movie.summary}
-                        </Typography>
-                    </Box>
-                    
-                </CardContent>
-            </Grid>
-        );
-
-    };
-
-    const MovieActions = () => {
-    
-     return (
-
-        <Grid item xs={12}>
-
-        <Divider sx={{ backgroundColor: '#EE4B2B' }} />
-
-        <Box display='flex' justifyContent='space-between' alignItems='center' p='1'> 
+            //combine the swipe with handling the movie acceptance or rejection
+            if (isSwipeLeft) {
+                handleAccept();
+            } else {
+                handleReject();
+            }
         
-            <Button
-                variant='contained'
-                color='success'
-                startIcon={<CheckIcon />}
-                onClick={handleAccept}
-                sx={{ 
-                    flex: '1',
-                    mr: '4px',
-                    borderRadius: '8px',
-                    backgroundColor: '#4caf50',
-                    color: '#fff',
-                }}
-            >
-                Accept
-            </Button>
-
-            <Button
-                variant='contained'
-                color='error'
-                startIcon={<CloseIcon />}
-                onClick={handleReject}
-                sx={{
-                    flex: '1',
-                    ml: '4px',
-                    borderRadius: '8px',
-                    backgroundColor: '#f44336',
-                    color: '#fff',
-                }}
-            >
-                Reject
-            </Button>
-
-        </Box>
-
-     </Grid>
-
-     );
-
+            // Reset the x and y motion values
+            x.set(0);
+            y.set(0);
+        }
     };
 
     return (
 
         <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center', paddingRight: 0 }}>
 
-            <Card sx={{
-                position: 'relative',
-                height: '100%',
-                borderRadius: '12px',
-                backgroundColor: '#f5f5f5',
-                boxShadow: '8px 8px 10px rgba(2.2, 3.2, 0.5, 0.5)',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-            }}>
+            <motion.div
+                style= {{ x, y, display: 'flex', justifyContent: 'center', paddingRight: 0 }}
+                drag='x'
+                dragConstraints={{ left: 0, right: 0 }}
+                onDragEnd={handleDragEnd}
+            >
+
+                <Card 
+                    sx={{
+                        position: 'relative',
+                        height: '100%',
+                        borderRadius: '12px',
+                        backgroundColor: '#f5f5f5',
+                        boxShadow: '8px 8px 10px rgba(2.2, 3.2, 0.5, 0.5)',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                    }}
+                    className={`movie-card ${swipeDirection}`}
+                >
 
                 <Grid container spacing={0}>
 
-                    <MovieImage />
+                    <MovieImage 
+                        imageURL={movie.imageURL}
+                        title={movie.title}
+                    />
 
-                    <MovieDetails />
+                    <MovieDetails 
+                        title={movie.title}
+                        rating={movie.rating}
+                        summary={movie.summary}
+                        maxRating={maxRating}
+                        calculateScaledRating={calculateScaledRating}
+                    />
 
-                    <MovieActions />
+                    <MovieActions 
+                        onAccept={handleAccept}
+                        onReject={handleReject}
+                    />
 
                 </Grid>
 
             </Card>
+            
+            </motion.div>
 
         </Grid>
 

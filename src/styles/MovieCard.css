@@ -1,0 +1,35 @@
+.movie-card {
+    width: 80%;
+    height: 100%;
+    border-radius: 12px;
+    background-color: #f5f5f5;
+    box-shadow: 8px 8px 10px rgba(2.2, 3.2, 0.5, 0.5);
+    position: relative;
+    overflow: hidden;
+}
+  
+@keyframes swipeLeft {
+0% {
+    transform: translateX(0);
+}
+100% {
+    transform: translateX(-250%);
+}
+}
+
+@keyframes swipeRight {
+0% {
+    transform: translateX(0);
+}
+100% {
+    transform: translateX(250%);
+}
+}
+
+.movie-card.left {
+animation: swipeLeft 0.5s ease-in;
+}
+
+.movie-card.right {
+animation: swipeRight 0.5s ease-in;
+}

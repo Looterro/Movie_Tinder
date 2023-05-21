@@ -43,7 +43,7 @@ const useMovieRecommendations = () => {
 
         } catch (error) {
 
-            console.error("Error when rejecting movie: ", error);
+            console.error('Error when rejecting movie: ', error);
 
         }
 
@@ -62,7 +62,7 @@ const useMovieRecommendations = () => {
 
         } catch (error) {
 
-            console.error("Error when rejecting movie: ", error);
+            console.error('Error when rejecting movie: ', error);
 
         }
 
