@@ -1,4 +1,5 @@
 import React from 'react';
+import MovieCard from './MovieCard';
 import useMovieRecommendations from '../hooks/useMovieRecommendations';
 import '../styles/MovieList.css'
 
@@ -29,7 +30,11 @@ const MovieList: React.FC = () => {
             {/*  If there is no movies display a message, else display the current index card*/}
             {currentMovie ? (
                
-               <div>Movie Card</div>
+               <MovieCard 
+                    movie={currentMovie}
+                    onAccept={handleAcceptAndNext}
+                    onReject={handleRejectAndNext}
+               />
 
             ) : (
 
@@ -38,7 +43,7 @@ const MovieList: React.FC = () => {
                 </div>
 
             )}
-            
+
         </div>
 
     );
