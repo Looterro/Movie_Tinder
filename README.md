@@ -22,6 +22,12 @@ A single-page frontend application for selecting a movie to watch using a phone 
 
 • Material UI
 
+### Github Pages link:
+
+https://looterro.github.io/Movie_Tinder/
+
+## Important: The app won't work with enabled adblock
+
 ## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

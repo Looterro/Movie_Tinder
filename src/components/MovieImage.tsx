@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Grid } from '@mui/material';
+import { Box, Grid, useMediaQuery } from '@mui/material';
 
 interface MovieImageProps {
   imageURL: string;
@@ -8,9 +8,12 @@ interface MovieImageProps {
 
 const MovieImage: React.FC<MovieImageProps> = ({ imageURL, title }) => {
 
+    //Check if the screen size is small
+    const isSmallScreen = useMediaQuery('(max-width: 1000px)');
+
     return (
 
-        <Grid item xs={12} md={5}>       
+        <Grid item xs={12} md={5} alignContent={'center'} sx={{ justifyContent: 'center'}}>       
             <Box sx={{
                 p: '14px',
                 pb: '4px',
@@ -21,10 +24,11 @@ const MovieImage: React.FC<MovieImageProps> = ({ imageURL, title }) => {
                 alignItems: 'center',
             }}>
 
-                <img 
+                <img
                     src={imageURL}
                     alt={title}
                     style={{
+                        maxWidth: isSmallScreen ? '40vw' : '100%',
                         width: '100%',
                         height: '100%',
                         objectFit: 'cover',

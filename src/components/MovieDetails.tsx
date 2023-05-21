@@ -17,11 +17,12 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({ title, rating, summary, max
             <CardContent sx={{ p: '4px 0 0 0'}}>
 
                 <Typography
-                    variant = "h6"
+                    variant = "h5"
                     sx={{
                         fontWeight: 'bold',
-                        p: '8px 8px 4px 0',
+                        p: '8px 8px 9px 0',
                         color: '#333',
+                        pl: '8px',
                     }}
                 >
                     {title}
