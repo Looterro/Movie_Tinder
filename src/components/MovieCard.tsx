@@ -57,14 +57,14 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, onAccept, onReject }) => {
     const y = useMotionValue(0);
 
     // Defining the drag constraints for the movie card using framer-motion
-    const xRange = [-300, 300];
+    const xRange = [-800, 800];
     const dragX = useTransform(x, xRange, xRange);
 
     //Function to handle the drag event
     const handleDragEnd = () => {
        
         const dragDistance = Math.abs(dragX.get());
-        const swipeThreshold = 100;
+        const swipeThreshold = 50;
 
          // If the drag distance is greater than the swipe threshold, then swipe the card
         if (dragDistance > swipeThreshold) {
