@@ -1,6 +1,6 @@
 # Tinder for movies project
 
-A single-page frontend application for selecting a movie to watch using a phone or a PC for Rumble Fish job interview assessment.
+A single-page frontend application for selecting a movie to watch using a phone or a PC.
 
 ### Functionality
 
